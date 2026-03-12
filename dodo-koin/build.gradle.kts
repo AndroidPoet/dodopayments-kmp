@@ -24,7 +24,12 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            api(project(":dodo-client"))
+            api(project(":dodo-payments"))
+            api(project(":dodo-subscriptions"))
+            api(project(":dodo-customers"))
+            api(project(":dodo-products"))
+            api(project(":dodo-billing"))
+            // Koin is an internal impl detail — not api()
             implementation(libs.koin.core)
         }
     }
@@ -42,7 +47,7 @@ mavenPublishing {
     coordinates(groupId = Configuration.GROUP, artifactId = "dodo-koin", version = Configuration.VERSION)
     pom {
         name.set("dodo-koin")
-        description.set("Optional Koin DI integration for Dodo Payments KMP SDK")
+        description.set("Optional aggregate facade with isolated Koin DI for Dodo Payments KMP SDK")
         inceptionYear.set("2025")
         url.set("https://github.com/AndroidPoet/dodopayments-kmp")
         licenses { license { name.set("MIT License"); url.set("https://opensource.org/licenses/MIT") } }
