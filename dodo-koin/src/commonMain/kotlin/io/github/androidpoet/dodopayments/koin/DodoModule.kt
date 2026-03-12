@@ -1,5 +1,8 @@
-package io.github.androidpoet.dodopayments.client
+package io.github.androidpoet.dodopayments.koin
 
+import io.github.androidpoet.dodopayments.client.DodoClient
+import io.github.androidpoet.dodopayments.client.DodoConfig
+import io.github.androidpoet.dodopayments.client.DodoPayments
 import io.github.androidpoet.dodopayments.core.DodoEnvironment
 import org.koin.dsl.module
 
