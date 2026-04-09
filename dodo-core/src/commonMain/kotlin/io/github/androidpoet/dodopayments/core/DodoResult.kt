@@ -33,10 +33,6 @@ public sealed interface DodoResult<out T> {
 
     public fun getOrNull(): T? = if (this is Success) value else null
 
-    @Suppress("UNCHECKED_CAST")
-    public fun <R : @UnsafeVariance T> getOrElse(default: R): R =
-        if (this is Success) value as R else default
-
     public fun getOrThrow(): T = when (this) {
         is Success -> value
         is Failure -> throw error.toException()
@@ -51,4 +47,9 @@ public sealed interface DodoResult<out T> {
             Failure(DodoError(message = e.message ?: "Unknown error"))
         }
     }
+}
+
+public fun <T> DodoResult<T>.getOrElse(default: T): T = when (this) {
+    is DodoResult.Success -> value
+    is DodoResult.Failure -> default
 }

@@ -7,7 +7,7 @@ import kotlin.test.assertTrue
 
 class ProductModelsTest {
 
-    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = false }
+    private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true; classDiscriminator = "_type" }
 
     @Test
     fun test_createProductRequest_withOneTimePrice_serializes() {

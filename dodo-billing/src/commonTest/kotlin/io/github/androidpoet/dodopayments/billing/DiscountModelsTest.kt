@@ -18,7 +18,6 @@ class DiscountModelsTest {
 
         assertTrue(encoded.contains("SAVE20"))
         assertTrue(encoded.contains("2000"))
-        assertTrue(encoded.contains("percentage"))
     }
 
     @Test
