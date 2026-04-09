@@ -20,13 +20,10 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 internal class HttpTransport(
-    private val apiKey: String,
-    private val baseUrl: String,
+    override val apiKey: String,
+    override val baseUrl: String,
     config: DodoConfig,
 ) : DodoClient {
-
-    override val apiKey: String get() = this.apiKey
-    override val baseUrl: String get() = this.baseUrl
 
     private val json = Json {
         ignoreUnknownKeys = true

@@ -1,10 +1,10 @@
-
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.vanniktech.publish)
 }
+
 
 kotlin {
     explicitApi()
@@ -33,14 +33,9 @@ android {
 }
 
 mavenPublishing {
-    coordinates(groupId = Configuration.GROUP, artifactId = "dodo-subscriptions", version = Configuration.VERSION)
+    coordinates(Configuration.GROUP, "dodo-subscriptions", Configuration.VERSION)
     pom {
         name.set("dodo-subscriptions")
         description.set("Subscriptions module for Dodo Payments KMP SDK")
-        inceptionYear.set("2025")
-        url.set("https://github.com/AndroidPoet/dodopayments-kmp")
-        licenses { license { name.set("MIT License"); url.set("https://opensource.org/licenses/MIT") } }
-        developers { developer { id.set("androidpoet"); name.set("Ranbir Singh"); url.set("https://github.com/AndroidPoet") } }
-        scm { url.set("https://github.com/AndroidPoet/dodopayments-kmp") }
     }
 }

@@ -1,4 +1,3 @@
-
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
@@ -6,24 +5,16 @@ plugins {
     alias(libs.plugins.vanniktech.publish)
 }
 
+
 kotlin {
     explicitApi()
-
-    androidTarget {
-        publishLibraryVariants("release")
-    }
+    androidTarget { publishLibraryVariants("release") }
     jvm()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-    macosX64()
-    macosArm64()
-    linuxX64()
-    mingwX64()
+    iosX64(); iosArm64(); iosSimulatorArm64()
+    macosX64(); macosArm64()
+    linuxX64(); mingwX64()
     wasmJs { browser() }
-
     jvmToolchain(17)
-
     sourceSets {
         commonMain.dependencies {
             api(project(":dodo-core"))
@@ -31,7 +22,6 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.client.logging)
             implementation(libs.ktor.serialization.kotlinx.json)
-
         }
         androidMain.dependencies {
             implementation(libs.ktor.client.okhttp)
@@ -57,39 +47,13 @@ kotlin {
 android {
     namespace = "io.github.androidpoet.dodopayments.client"
     compileSdk = Configuration.COMPILE_SDK
-    defaultConfig {
-        minSdk = Configuration.MIN_SDK
-    }
+    defaultConfig { minSdk = Configuration.MIN_SDK }
 }
 
 mavenPublishing {
-    coordinates(
-        groupId = Configuration.GROUP,
-        artifactId = "dodo-client",
-        version = Configuration.VERSION,
-    )
+    coordinates(Configuration.GROUP, "dodo-client", Configuration.VERSION)
     pom {
         name.set("dodo-client")
         description.set("HTTP client for Dodo Payments KMP SDK")
-        inceptionYear.set("2025")
-        url.set("https://github.com/AndroidPoet/dodopayments-kmp")
-        licenses {
-            license {
-                name.set("MIT License")
-                url.set("https://opensource.org/licenses/MIT")
-            }
-        }
-        developers {
-            developer {
-                id.set("androidpoet")
-                name.set("Ranbir Singh")
-                url.set("https://github.com/AndroidPoet")
-            }
-        }
-        scm {
-            url.set("https://github.com/AndroidPoet/dodopayments-kmp")
-            connection.set("scm:git:git://github.com/AndroidPoet/dodopayments-kmp.git")
-            developerConnection.set("scm:git:ssh://git@github.com/AndroidPoet/dodopayments-kmp.git")
-        }
     }
 }
