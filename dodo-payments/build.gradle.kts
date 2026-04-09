@@ -28,6 +28,9 @@ kotlin {
             api(project(":dodo-client"))
             implementation(libs.kotlinx.serialization.json)
         }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+        }
     }
 }
 
@@ -38,7 +41,7 @@ android {
 }
 
 mavenPublishing {
-    publishToMavenCentral(SonatypeHost.DEFAULT, automaticRelease = true)
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
     signAllPublications()
     coordinates(groupId = Configuration.GROUP, artifactId = "dodo-payments", version = Configuration.VERSION)
     pom {

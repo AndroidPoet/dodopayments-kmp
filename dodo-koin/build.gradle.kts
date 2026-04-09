@@ -42,7 +42,7 @@ android {
 }
 
 mavenPublishing {
-    publishToMavenCentral(SonatypeHost.DEFAULT, automaticRelease = true)
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
     signAllPublications()
     coordinates(groupId = Configuration.GROUP, artifactId = "dodo-koin", version = Configuration.VERSION)
     pom {
