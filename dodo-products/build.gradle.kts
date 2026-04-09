@@ -1,4 +1,3 @@
-import com.vanniktech.maven.publish.SonatypeHost
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -34,7 +33,6 @@ android {
 }
 
 mavenPublishing {
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
     signAllPublications()
     coordinates(groupId = Configuration.GROUP, artifactId = "dodo-products", version = Configuration.VERSION)
     pom {
