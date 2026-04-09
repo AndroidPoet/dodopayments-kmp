@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="art/logo.png" alt="dodopayments-kmp" />
+</p>
+
 # Dodo Payments KMP
 
 Kotlin Multiplatform SDK for the [Dodo Payments](https://dodopayments.com) API. Coroutine-first, type-safe, zero runtime overhead.
