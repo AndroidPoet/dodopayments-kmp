@@ -3,6 +3,7 @@ package io.github.androidpoet.dodopayments.products
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Serializable
 public enum class TaxCategory {
     @SerialName("digital_products") DigitalProducts,
     @SerialName("saas") Saas,

@@ -41,7 +41,6 @@ android {
 }
 
 mavenPublishing {
-    signAllPublications()
     coordinates(groupId = Configuration.GROUP, artifactId = "dodo-koin", version = Configuration.VERSION)
     pom {
         name.set("dodo-koin")

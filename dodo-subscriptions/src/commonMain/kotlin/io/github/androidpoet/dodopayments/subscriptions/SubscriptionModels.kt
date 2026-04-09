@@ -7,6 +7,7 @@ import io.github.androidpoet.dodopayments.core.ProductCartItem
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+@Serializable
 public enum class SubscriptionStatus {
     @SerialName("pending") Pending,
     @SerialName("active") Active,

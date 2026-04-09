@@ -63,7 +63,6 @@ android {
 }
 
 mavenPublishing {
-    signAllPublications()
     coordinates(
         groupId = Configuration.GROUP,
         artifactId = "dodo-client",

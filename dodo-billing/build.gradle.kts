@@ -33,7 +33,6 @@ android {
 }
 
 mavenPublishing {
-    signAllPublications()
     coordinates(groupId = Configuration.GROUP, artifactId = "dodo-billing", version = Configuration.VERSION)
     pom {
         name.set("dodo-billing")

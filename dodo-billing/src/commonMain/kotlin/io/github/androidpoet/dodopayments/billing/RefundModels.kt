@@ -19,6 +19,7 @@ public data class CreateRefundRequest(
     val reason: String? = null,
 )
 
+@Serializable
 public enum class RefundStatus {
     @SerialName("succeeded") Succeeded,
     @SerialName("failed") Failed,
