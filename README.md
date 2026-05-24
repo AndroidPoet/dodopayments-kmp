@@ -37,9 +37,6 @@ dependencies {
     implementation("io.github.androidpoet:dodo-customers:0.1.0")
     implementation("io.github.androidpoet:dodo-products:0.1.0")
     implementation("io.github.androidpoet:dodo-billing:0.1.0")
-
-    // Optional: single dependency that includes everything + DodoSdk aggregate
-    implementation("io.github.androidpoet:dodo-koin:0.1.0")
 }
 ```
 
@@ -61,27 +58,6 @@ val customers    = CustomersClient(client)
 val products     = ProductsClient(client)
 val refunds      = RefundsClient(client)
 val discounts    = DiscountsClient(client)
-```
-
-### Option B — DodoSdk aggregate facade (via `dodo-koin`)
-
-All clients pre-wired in a single object. Koin runs in an isolated container — it never touches your app's Koin instance.
-
-```kotlin
-val sdk = DodoSdk(
-    apiKey = "your_api_key",
-    environment = DodoEnvironment.Test,
-)
-
-sdk.payments.createPayment(...)
-sdk.subscriptions.createSubscription(...)
-sdk.customers.getCustomer(...)
-sdk.products.listProducts()
-sdk.refunds.createRefund(...)
-sdk.discounts.validateDiscount(...)
-
-// Clean up when done
-sdk.close()
 ```
 
 ## Usage
@@ -250,7 +226,6 @@ payments.getPayment("pay_abc123")
 | `dodo-customers` | `io.github.androidpoet:dodo-customers` | Customer management + portal sessions |
 | `dodo-products` | `io.github.androidpoet:dodo-products` | Products (one-time + recurring) |
 | `dodo-billing` | `io.github.androidpoet:dodo-billing` | Refunds + Discounts |
-| `dodo-koin` | `io.github.androidpoet:dodo-koin` | Optional: `DodoSdk` aggregate with isolated Koin DI |
 
 ## Environments
 
