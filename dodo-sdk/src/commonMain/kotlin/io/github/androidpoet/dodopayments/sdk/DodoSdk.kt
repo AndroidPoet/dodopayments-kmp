@@ -14,8 +14,6 @@ import io.github.androidpoet.dodopayments.subscriptions.SubscriptionsClient
 
 /**
  * Aggregate SDK facade with manual dependency wiring.
- *
- * No DI framework is used. You can still instantiate individual clients directly.
  */
 public class DodoSdk(
     public val client: DodoClient,

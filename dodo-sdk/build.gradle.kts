@@ -37,6 +37,6 @@ mavenPublishing {
     coordinates(Configuration.GROUP, "dodo-sdk", Configuration.VERSION)
     pom {
         name.set("dodo-sdk")
-        description.set("Optional aggregate facade for Dodo Payments KMP SDK (manual wiring, no DI framework)")
+        description.set("Optional aggregate facade for Dodo Payments KMP SDK")
     }
 }
