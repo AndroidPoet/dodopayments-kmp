@@ -28,24 +28,21 @@ Add the modules you need to your `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    // Required: HTTP client + DodoResult
     implementation("io.github.androidpoet:dodo-client:0.1.0")
 
-    // Feature modules — add only what you need
     implementation("io.github.androidpoet:dodo-payments:0.1.0")
     implementation("io.github.androidpoet:dodo-subscriptions:0.1.0")
     implementation("io.github.androidpoet:dodo-customers:0.1.0")
     implementation("io.github.androidpoet:dodo-products:0.1.0")
     implementation("io.github.androidpoet:dodo-billing:0.1.0")
 
-    // Optional aggregate facade (manual wiring, no DI framework)
     implementation("io.github.androidpoet:dodo-sdk:0.1.0")
 }
 ```
 
 ## Quick Start
 
-### Option A — Manual (no DI framework required)
+### Option A — Direct clients
 
 ```kotlin
 val client = DodoPayments.create(
@@ -63,9 +60,9 @@ val refunds      = RefundsClient(client)
 val discounts    = DiscountsClient(client)
 ```
 
-### Option B — DodoSdk aggregate facade (manual wiring)
+### Option B — DodoSdk aggregate facade
 
-All clients pre-wired in a single object, with no DI framework required.
+All clients pre-wired in a single object.
 
 ```kotlin
 val sdk = DodoSdk.create(
@@ -82,7 +79,6 @@ sdk.products.listProducts()
 sdk.refunds.createRefund(...)
 sdk.discounts.validateDiscount(...)
 
-// Clean up when done
 sdk.close()
 ```
 
@@ -91,7 +87,6 @@ sdk.close()
 ### Payments
 
 ```kotlin
-// Create a payment
 val result = payments.createPayment(
     CreatePaymentRequest(
         productCart = listOf(ProductCartItem(productId = "prod_123", quantity = 1)),
@@ -105,18 +100,15 @@ result
     .onSuccess { println("Payment created: ${it.paymentId}, secret: ${it.clientSecret}") }
     .onFailure { println("Error: ${it.message}") }
 
-// List payments
 payments.listPayments(ListPaymentsParams(pageSize = 20, status = "succeeded"))
     .onSuccess { it.items.forEach { p -> println(p.paymentId) } }
 
-// Get a payment
 payments.getPayment("pay_abc123")
 ```
 
 ### Subscriptions
 
 ```kotlin
-// Create a subscription
 subscriptions.createSubscription(
     CreateSubscriptionRequest(
         productId = "prod_456",
@@ -127,10 +119,8 @@ subscriptions.createSubscription(
     )
 )
 
-// Cancel at next billing date
 subscriptions.cancelSubscription("sub_xyz")
 
-// Change plan
 subscriptions.changePlan(
     "sub_xyz",
     ChangePlanRequest(
@@ -140,7 +130,6 @@ subscriptions.changePlan(
     )
 )
 
-// On-demand charge
 subscriptions.chargeOnDemand(
     "sub_xyz",
     OnDemandChargeRequest(productPrice = 1000, productCurrency = "USD"),
@@ -150,13 +139,10 @@ subscriptions.chargeOnDemand(
 ### Customers
 
 ```kotlin
-// Create
 customers.createCustomer(CreateCustomerRequest(name = "Jane Doe", email = "jane@example.com"))
 
-// Update
 customers.updateCustomer("cust_123", UpdateCustomerRequest(name = "Jane Smith"))
 
-// Customer portal session
 customers.createPortalSession("cust_123")
     .onSuccess { println("Portal URL: ${it.link}") }
 ```
@@ -164,7 +150,6 @@ customers.createPortalSession("cust_123")
 ### Products
 
 ```kotlin
-// Create a one-time product
 products.createProduct(
     CreateProductRequest(
         name = "Pro Plan",
@@ -173,7 +158,6 @@ products.createProduct(
     )
 )
 
-// Create a recurring product
 products.createProduct(
     CreateProductRequest(
         name = "Pro Monthly",
@@ -189,7 +173,6 @@ products.createProduct(
     )
 )
 
-// Archive / unarchive
 products.archiveProduct("prod_123")
 products.unarchiveProduct("prod_123")
 ```
@@ -197,10 +180,8 @@ products.unarchiveProduct("prod_123")
 ### Refunds & Discounts
 
 ```kotlin
-// Full refund
 refunds.createRefund(CreateRefundRequest(paymentId = "pay_abc123"))
 
-// Partial refund with reason
 refunds.createRefund(
     CreateRefundRequest(
         paymentId = "pay_abc123",
@@ -209,7 +190,6 @@ refunds.createRefund(
     )
 )
 
-// Create a discount
 discounts.createDiscount(
     CreateDiscountRequest(
         amount = 2000, // 20% in basis points
@@ -218,7 +198,6 @@ discounts.createDiscount(
     )
 )
 
-// Validate a discount code
 discounts.validateDiscount(ValidateDiscountRequest(code = "SAVE20"))
     .onSuccess { if (it.valid) println("Valid! ${it.discount?.amount}bps off") }
 ```
@@ -233,7 +212,6 @@ when (val result = payments.getPayment("pay_abc123")) {
     is DodoResult.Failure -> println("${result.error.code}: ${result.error.message}")
 }
 
-// Or with chainable operators
 payments.getPayment("pay_abc123")
     .map { it.totalAmount / 100.0 }
     .onSuccess { println("$$it") }
@@ -252,7 +230,7 @@ payments.getPayment("pay_abc123")
 | `dodo-customers` | `io.github.androidpoet:dodo-customers` | Customer management + portal sessions |
 | `dodo-products` | `io.github.androidpoet:dodo-products` | Products (one-time + recurring) |
 | `dodo-billing` | `io.github.androidpoet:dodo-billing` | Refunds + Discounts |
-| `dodo-sdk` | `io.github.androidpoet:dodo-sdk` | Optional aggregate facade with manual wiring |
+| `dodo-sdk` | `io.github.androidpoet:dodo-sdk` | Optional aggregate facade |
 
 ## Environments
 
