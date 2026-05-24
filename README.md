@@ -37,6 +37,9 @@ dependencies {
     implementation("io.github.androidpoet:dodo-customers:0.1.0")
     implementation("io.github.androidpoet:dodo-products:0.1.0")
     implementation("io.github.androidpoet:dodo-billing:0.1.0")
+
+    // Optional aggregate facade (manual wiring, no DI framework)
+    implementation("io.github.androidpoet:dodo-sdk:0.1.0")
 }
 ```
 
@@ -58,6 +61,29 @@ val customers    = CustomersClient(client)
 val products     = ProductsClient(client)
 val refunds      = RefundsClient(client)
 val discounts    = DiscountsClient(client)
+```
+
+### Option B — DodoSdk aggregate facade (manual wiring)
+
+All clients pre-wired in a single object, with no DI framework required.
+
+```kotlin
+val sdk = DodoSdk.create(
+    apiKey = "your_api_key",
+    environment = DodoEnvironment.Test,
+) {
+    logging = true
+}
+
+sdk.payments.createPayment(...)
+sdk.subscriptions.createSubscription(...)
+sdk.customers.getCustomer(...)
+sdk.products.listProducts()
+sdk.refunds.createRefund(...)
+sdk.discounts.validateDiscount(...)
+
+// Clean up when done
+sdk.close()
 ```
 
 ## Usage
@@ -226,6 +252,7 @@ payments.getPayment("pay_abc123")
 | `dodo-customers` | `io.github.androidpoet:dodo-customers` | Customer management + portal sessions |
 | `dodo-products` | `io.github.androidpoet:dodo-products` | Products (one-time + recurring) |
 | `dodo-billing` | `io.github.androidpoet:dodo-billing` | Refunds + Discounts |
+| `dodo-sdk` | `io.github.androidpoet:dodo-sdk` | Optional aggregate facade with manual wiring |
 
 ## Environments
 
